@@ -191,6 +191,27 @@
       flex-shrink: 0;
     }
 
+    .series-name.expandable {
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+    .series-name.expandable:hover { color: var(--fg); }
+    .series-name.expandable::after {
+      content: ' +';
+      color: var(--fg-dim);
+      font-size: 0.6em;
+      letter-spacing: 0;
+    }
+    .series-name.expandable.open::after { content: ' −'; }
+
+    .more-grid {
+      display: none;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--gap);
+      margin-top: var(--gap);
+    }
+    .more-grid.open { display: grid; }
+
     .series-rule {
       flex: 1;
       height: 1px;
@@ -718,7 +739,7 @@
     <div class="contact-right">
       <p class="c-label">Follow</p>
       <div class="socials">
-        <a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.instagram.com/mathias_sedo/" target="_blank" rel="noopener">Instagram</a>
         <a href="https://vimeo.com/"     target="_blank" rel="noopener">Vimeo</a>
       </div>
       <p class="c-label" style="margin-top:2rem;">Based in</p>
@@ -790,6 +811,23 @@ var SITE_CONFIG = {
         { src: 'images/farvesvob-01.jpg', title: 'Farvesvøb smeltevand' },
         { src: 'images/farvesvob-02.jpg', title: 'Farvesvøb smeltevand' },
         { src: 'images/farvesvob-03.jpg', title: 'Farvesvøb smeltevand' },
+      ],
+      moreImages: [
+        { src: 'images/Farvesvøb36.jpeg',       title: 'Farvesvøb smeltevand — 36' },
+        { src: 'images/Farvesvøb38.jpeg',       title: 'Farvesvøb smeltevand — 38' },
+        { src: 'images/Farvesvøb41.jpeg',       title: 'Farvesvøb smeltevand — 41' },
+        { src: 'images/Farvesvøb42.jpeg',       title: 'Farvesvøb smeltevand — 42' },
+        { src: 'images/Farvesvøb43.jpeg',       title: 'Farvesvøb smeltevand — 43' },
+        { src: 'images/Farvesvøb44.jpeg',       title: 'Farvesvøb smeltevand — 44' },
+        { src: 'images/Farvesvøb45.jpeg',       title: 'Farvesvøb smeltevand — 45' },
+        { src: 'images/Farvesvøb49.jpeg',       title: 'Farvesvøb smeltevand — 49' },
+        { src: 'images/Farvesvøb50 Ventani.jpeg', title: 'Farvesvøb smeltevand — Ventani' },
+        { src: 'images/Farvesvøb59.jpeg',       title: 'Farvesvøb smeltevand — 59' },
+        { src: 'images/Farvesvøb76.jpeg',       title: 'Farvesvøb smeltevand — 76' },
+        { src: 'images/Farvesvøb90.jpeg',       title: 'Farvesvøb smeltevand — 90' },
+        { src: 'images/Farvesvøb94.jpeg',       title: 'Farvesvøb smeltevand — 94' },
+        { src: 'images/Farvesvøb104.jpeg',      title: 'Farvesvøb smeltevand — 104' },
+        { src: 'images/Farvesvøb91.jpeg',       title: 'Farvesvøb smeltevand — 91' },
       ]
     },
     {
@@ -801,15 +839,41 @@ var SITE_CONFIG = {
       ]
     },
     {
-      name: 'FR SCAN',
+      name: 'FC-CF',
       diptychs: [
         [
-          { src: 'images/photo-01.jpg',  title: 'FR SCAN — G (positive)', label: 'positive' },
-          { src: 'images/frscan-gg.jpg', title: 'FR SCAN — Gg (negative)', label: 'negative' },
+          { src: 'images/photo-01.jpg',  title: 'FC-CF — G (positive)', label: 'positive' },
+          { src: 'images/frscan-gg.jpg', title: 'FC-CF — Gg (negative)', label: 'negative' },
         ],
         [
-          { src: 'images/frscan-k.jpg',  title: 'FR SCAN — K (positive)', label: 'positive' },
-          { src: 'images/frscan-kk.jpg', title: 'FR SCAN — Kk (negative)', label: 'negative' },
+          { src: 'images/frscan-k.jpg',  title: 'FC-CF — K (positive)', label: 'positive' },
+          { src: 'images/frscan-kk.jpg', title: 'FC-CF — Kk (negative)', label: 'negative' },
+        ],
+      ],
+      moreDiptychs: [
+        [
+          { src: 'images/A.jpg',  title: 'FC-CF — A',  label: 'positive' },
+          { src: 'images/Aa.jpg', title: 'FC-CF — Aa', label: 'negative' },
+        ],
+        [
+          { src: 'images/E.jpg',  title: 'FC-CF — E',  label: 'positive' },
+          { src: 'images/Ee.jpg', title: 'FC-CF — Ee', label: 'negative' },
+        ],
+        [
+          { src: 'images/I.jpg',  title: 'FC-CF — I',  label: 'positive' },
+          { src: 'images/Ii.jpg', title: 'FC-CF — Ii', label: 'negative' },
+        ],
+        [
+          { src: 'images/M.jpg',  title: 'FC-CF — M',  label: 'positive' },
+          { src: 'images/Mm.jpg', title: 'FC-CF — Mm', label: 'negative' },
+        ],
+        [
+          { src: 'images/O.jpg',  title: 'FC-CF — O',  label: 'positive' },
+          { src: 'images/Oo.jpg', title: 'FC-CF — Oo', label: 'negative' },
+        ],
+        [
+          { src: 'images/Q.jpg',  title: 'FC-CF — Q',  label: 'positive' },
+          { src: 'images/Qq.jpg', title: 'FC-CF — Qq', label: 'negative' },
         ],
       ],
       images: []
@@ -817,9 +881,9 @@ var SITE_CONFIG = {
     {
       name: 'Pinholes',
       images: [
-        { src: 'images/pinholes-01.jpg', title: 'Pinholes — Skolen' },
+        { src: 'images/pinholes-01.jpg', title: 'Pinholes — Skærsol' },
         { src: 'images/pinholes-02.jpg', title: 'Pinholes — Cykelkam' },
-        { src: 'images/pinholes-03.jpg', title: 'Pinholes — Skærsol' },
+        { src: 'images/pinholes-03.jpg', title: 'Pinholes — Skolen' },
       ]
     },
     {
@@ -869,6 +933,14 @@ var SITE_CONFIG = {
       origin:  'Shipping available',
       price:   '800 DKK',
       subject: 'Print - Kemirend',
+    },
+    {
+      src:     'images/pinholes-03.jpg',
+      title:   'Pinholes — Skolen',
+      edition: 'Limited edition · Printed in Aarhus',
+      origin:  'Shipping available',
+      price:   '800 DKK',
+      subject: 'Print - Pinholes Skolen',
     },
   ],
 
@@ -952,7 +1024,14 @@ var SITE_CONFIG = {
 
     var head = document.createElement('div');
     head.className = 'series-head';
-    head.innerHTML = '<span class="series-name">' + series.name + '</span><div class="series-rule"></div>';
+    var hasMore = (series.moreImages && series.moreImages.length) || (series.moreDiptychs && series.moreDiptychs.length);
+    var nameEl = document.createElement('span');
+    nameEl.className = 'series-name' + (hasMore ? ' expandable' : '');
+    nameEl.textContent = series.name;
+    var ruleEl = document.createElement('div');
+    ruleEl.className = 'series-rule';
+    head.appendChild(nameEl);
+    head.appendChild(ruleEl);
     seriesDiv.appendChild(head);
 
     /* Optional diptychs — supports multiple pairs */
@@ -1000,6 +1079,65 @@ var SITE_CONFIG = {
         grid.appendChild(pi);
       });
       seriesDiv.appendChild(grid);
+    }
+
+    /* More diptychs — hidden, toggled by clicking the series name */
+    if (series.moreDiptychs && series.moreDiptychs.length) {
+      var moreDipWrap = document.createElement('div');
+      moreDipWrap.className = 'more-grid';
+      moreDipWrap.style.display = 'none';
+      series.moreDiptychs.forEach(function(pair) {
+        var dipDiv = document.createElement('div');
+        dipDiv.className = 'diptych';
+        dipDiv.style.marginBottom = '0';
+        pair.forEach(function(item, i) {
+          var d = document.createElement('div');
+          d.className = 'diptych-item';
+          var img = document.createElement('img');
+          img.src = item.src; img.alt = item.title;
+          var lbl = document.createElement('span');
+          lbl.className = 'diptych-label';
+          lbl.textContent = item.label || '';
+          var cap = document.createElement('span');
+          cap.className = 'dip-cap';
+          cap.textContent = item.title;
+          d.appendChild(img); d.appendChild(lbl); d.appendChild(cap);
+          d.addEventListener('click', function() { openLb(pair, i); });
+          dipDiv.appendChild(d);
+        });
+        moreDipWrap.appendChild(dipDiv);
+      });
+      seriesDiv.appendChild(moreDipWrap);
+      nameEl.addEventListener('click', function() {
+        nameEl.classList.toggle('open');
+        moreDipWrap.style.display = moreDipWrap.style.display === 'none' ? 'grid' : 'none';
+      });
+    }
+
+    /* More images — hidden grid toggled by clicking the series name */
+    if (series.moreImages && series.moreImages.length) {
+      var moreGrid = document.createElement('div');
+      moreGrid.className = 'more-grid';
+      var baseImgs = series.images || [];
+      var allImgs = baseImgs.concat(series.moreImages);
+      series.moreImages.forEach(function(item, mi) {
+        var pi = document.createElement('div');
+        pi.className = 'pi';
+        var img = document.createElement('img');
+        img.src = item.src; img.alt = item.title;
+        var cap = document.createElement('span');
+        cap.className = 'pi-cap';
+        cap.textContent = item.title;
+        pi.appendChild(img);
+        pi.appendChild(cap);
+        pi.addEventListener('click', (function(idx) { return function() { openLb(allImgs, idx); }; })(baseImgs.length + mi));
+        moreGrid.appendChild(pi);
+      });
+      seriesDiv.appendChild(moreGrid);
+      nameEl.addEventListener('click', function() {
+        nameEl.classList.toggle('open');
+        moreGrid.classList.toggle('open');
+      });
     }
 
     workEl.appendChild(seriesDiv);
