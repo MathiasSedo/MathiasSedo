@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mathias Sedo</title>
+  <meta name="description" content="Mathias Sedo — Photographer and visual artist based in Aarhus, Denmark. Experimental film negatives, carousel projection installations, and documentary photography.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; background: none; border: none; cursor: pointer; }
+
+    :root {
+      --bg:     #060606;
+      --fg:     #dbd7d0;
+      --fg-mid: #8a8880;
+      --fg-dim: #4a4a46;
+      --mono:   'Space Mono', 'Courier New', monospace;
+      --nav-h:  54px;
+      --gap:    2px;
+      --pad:    2.5rem;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Film grain */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 500;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--pad);
+      background: rgba(6,6,6,0.88);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .nav-name {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    .nav-links a {
+      font-size: 0.67rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--fg-dim);
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--fg); }
+
+    /* ===== HERO GRID ===== */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--gap);
+      padding-top: var(--nav-h);
+    }
+
+    .hg-item {
+      position: relative;
+      overflow: hidden;
+      cursor: zoom-in;
+      background: #0d0d0d;
+    }
+
+    .hg-item::before {
+      content: '';
+      display: block;
+      padding-top: 78%;
+    }
+
+    .hg-item img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.75s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.3s;
+    }
+
+    .hg-item:hover img { transform: scale(1.04); opacity: 0.75; }
+
+    /* ===== BIO ===== */
+    .bio {
+      padding: 4rem var(--pad) 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .bio-text {
+      font-size: 0.82rem;
+      line-height: 1.9;
+      color: var(--fg);
+      max-width: 58ch;
+    }
+
+    .bio-text p + p { margin-top: 1rem; }
+
+    .bio-meta {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: 0.2rem;
+    }
+
+    .bio-location {
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--fg-dim);
+    }
+
+    /* ===== SECTION CHROME ===== */
+    section { padding: 5rem var(--pad); }
+
+    .s-head {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .s-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--fg-dim);
+      white-space: nowrap;
+    }
+
+    .s-rule {
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.06);
+    }
+
+    /* ===== WORK — SERIES ===== */
+    #work { padding-top: 4rem; }
+
+    .series { margin-bottom: 5.5rem; }
+    .series:last-of-type { margin-bottom: 0; }
+
+    .series-head {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .series-name {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--fg-mid);
+      flex-shrink: 0;
+    }
+
+    .series-rule {
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.04);
+    }
+
+    /* Photo grid */
+    .grid-photo {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--gap);
+    }
+
+    .pi {
+      position: relative;
+      overflow: hidden;
+      cursor: zoom-in;
+      background: #0d0d0d;
+    }
+
+    .pi::before { content: ''; display: block; padding-top: 133%; }
+
+    .pi img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.75s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.3s;
+    }
+
+    .pi:hover img { transform: scale(1.04); opacity: 0.7; }
+
+    .pi-cap, .hg-cap, .dip-cap {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 1.2rem 0.9rem 0.7rem;
+      font-size: 0.54rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      background: linear-gradient(transparent, rgba(0,0,0,0.55));
+      opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+    }
+    .pi:hover .pi-cap,
+    .hg-item:hover .hg-cap,
+    .diptych-item:hover .dip-cap { opacity: 1; }
+
+    /* Diptych */
+    .diptych {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gap);
+      margin-bottom: var(--gap);
+    }
+
+    .diptych-item {
+      position: relative;
+      overflow: hidden;
+      cursor: zoom-in;
+      background: #0d0d0d;
+    }
+
+    .diptych-item::before { content: ''; display: block; padding-top: 78%; }
+
+    .diptych-item img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.75s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.3s;
+    }
+
+    .diptych-item:hover img { transform: scale(1.04); opacity: 0.7; }
+
+    .diptych-label {
+      position: absolute;
+      bottom: 0.8rem;
+      left: 1rem;
+      font-size: 0.56rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+      pointer-events: none;
+    }
+
+    /* ===== VISUALS ===== */
+    #visuals {
+      padding: 0;
+      border-top: 1px solid rgba(255,255,255,0.055);
+    }
+
+    .vis-hero {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: #0a0806;
+    }
+
+    .vis-hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.88;
+    }
+
+    .vis-hero-ph {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 60%, #c4620a 0%, #7a3a05 30%, #1a0d03 65%, #060606 100%);
+      opacity: 0.85;
+    }
+
+    .vis-hero-label {
+      position: absolute;
+      bottom: 1.5rem;
+      left: var(--pad);
+      font-size: 0.58rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .vis-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      padding: 4rem var(--pad) 5rem;
+    }
+
+    .vis-text h2 {
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.7;
+      margin-bottom: 1.8rem;
+      color: var(--fg);
+    }
+
+    .vis-text p {
+      font-size: 0.76rem;
+      color: var(--fg-mid);
+      line-height: 1.9;
+      margin-bottom: 1.2rem;
+      max-width: 50ch;
+    }
+
+    .vis-details { padding-top: 0.5rem; }
+
+    .vis-tag {
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--fg-dim);
+      margin-bottom: 0.75rem;
+      margin-top: 2rem;
+    }
+    .vis-tag:first-child { margin-top: 0; }
+
+    .vis-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .vis-list li {
+      font-size: 0.72rem;
+      color: var(--fg-mid);
+      letter-spacing: 0.04em;
+    }
+
+    .vis-list li::before { content: '— '; color: var(--fg-dim); }
+
+    .btn-book {
+      display: inline-block;
+      margin-top: 2.5rem;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--fg);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 0.8rem 1.8rem;
+      transition: color 0.18s, border-color 0.18s, background 0.18s;
+    }
+
+    .btn-book:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.5);
+    }
+
+    /* ===== PRINTS ===== */
+    #prints { border-top: 1px solid rgba(255,255,255,0.055); }
+
+    .prints-intro {
+      max-width: 52ch;
+      font-size: 0.76rem;
+      color: var(--fg-dim);
+      line-height: 1.85;
+      margin-bottom: 3.5rem;
+    }
+
+    .prints-intro span { color: var(--fg-mid); }
+
+    .prints {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 3.5rem 2.5rem;
+    }
+
+    .print .thumb {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      background: #0f0f0f;
+      margin-bottom: 1.3rem;
+      display: block;
+    }
+
+    .print-title  { font-size: 0.72rem; letter-spacing: 0.07em; margin-bottom: 0.3rem; color: var(--fg); }
+    .print-meta   { font-size: 0.6rem; letter-spacing: 0.06em; color: var(--fg-dim); margin-bottom: 0.3rem; }
+    .print-origin { font-size: 0.58rem; letter-spacing: 0.05em; color: var(--fg-dim); margin-bottom: 0.8rem; font-style: italic; }
+
+    .print-price {
+      font-size: 0.78rem;
+      color: var(--fg);
+      margin-bottom: 1.1rem;
+      font-weight: 700;
+    }
+
+    .btn {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--fg-dim);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 0.55rem 1.1rem;
+      transition: color 0.18s, border-color 0.18s;
+    }
+    .btn:hover { color: var(--fg); border-color: rgba(255,255,255,0.32); }
+
+    /* ===== CONTACT ===== */
+    #contact { border-top: 1px solid rgba(255,255,255,0.055); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+    }
+
+    .contact-left h2 {
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.65;
+      margin-bottom: 2rem;
+      color: var(--fg);
+    }
+
+    .contact-email {
+      font-size: 0.76rem;
+      letter-spacing: 0.05em;
+      color: var(--fg-mid);
+      border-bottom: 1px solid rgba(255,255,255,0.14);
+      padding-bottom: 0.25rem;
+      display: inline-block;
+      transition: color 0.18s, border-color 0.18s;
+    }
+    .contact-email:hover { color: var(--fg); border-color: var(--fg); }
+
+    .c-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--fg-dim);
+      margin-bottom: 0.75rem;
+      margin-top: 2rem;
+    }
+    .c-label:first-child { margin-top: 0; }
+
+    .socials { display: flex; flex-direction: column; gap: 0.45rem; }
+    .socials a { font-size: 0.72rem; color: var(--fg-mid); letter-spacing: 0.04em; transition: color 0.18s; }
+    .socials a:hover { color: var(--fg); }
+    .location { font-size: 0.72rem; color: var(--fg-mid); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 1.8rem var(--pad);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer p { font-size: 0.58rem; letter-spacing: 0.09em; color: var(--fg-dim); }
+
+    /* ===== LIGHTBOX ===== */
+    .lb {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(4,4,4,0.97);
+      align-items: center;
+      justify-content: center;
+    }
+    .lb.open { display: flex; }
+
+    .lb-img {
+      max-width: 88vw;
+      max-height: 88vh;
+      object-fit: contain;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .lb-close {
+      position: absolute;
+      top: 1.4rem; right: 2rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--fg-dim);
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+    .lb-close:hover { color: var(--fg); }
+
+    .lb-btn {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      padding: 1.5rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--fg-dim);
+      transition: color 0.15s;
+    }
+    .lb-btn:hover { color: var(--fg); }
+    .lb-prev { left: 1rem; }
+    .lb-next { right: 1rem; }
+
+    .lb-counter {
+      position: absolute;
+      bottom: 1.5rem; left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      color: var(--fg-dim);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 960px) {
+      .bio { grid-template-columns: 1fr; gap: 1.5rem; }
+      .grid-photo { grid-template-columns: repeat(2, 1fr); }
+      .vis-body { grid-template-columns: 1fr; gap: 2.5rem; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+
+    @media (max-width: 640px) {
+      :root { --pad: 1.2rem; }
+      .nav-links { gap: 1.2rem; }
+      .hero-grid { grid-template-columns: repeat(2, 1fr); }
+      .grid-photo { grid-template-columns: repeat(2, 1fr); }
+      .diptych { grid-template-columns: 1fr 1fr; }
+      .prints { grid-template-columns: repeat(2, 1fr); gap: 2rem 1.2rem; }
+      footer { flex-direction: column; gap: 0.4rem; text-align: center; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ================================================================
+     NAV
+================================================================ -->
+<nav>
+  <a href="#" class="nav-name">Mathias Sedo</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#visuals">Visuals</a></li>
+    <li><a href="#prints">Prints</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+
+<!-- ================================================================
+     HERO GRID  (rendered by JS from SITE_CONFIG.hero below)
+================================================================ -->
+<div class="hero-grid" id="js-hero-grid"></div>
+
+
+<!-- ================================================================
+     BIO
+================================================================ -->
+<div class="bio">
+  <div class="bio-text">
+    <p>Mathias Sedo is a photographer and visual artist based in Aarhus, Denmark. His practice moves between experimental film negatives, carousel projection installations, and documentary photography — working with light, material, and the chemical residue of images left to decay.</p>
+  </div>
+  <div class="bio-meta">
+    <span class="bio-location">Aarhus, Denmark</span>
+  </div>
+</div>
+
+
+<!-- ================================================================
+     WORK  (rendered by JS from SITE_CONFIG.series below)
+================================================================ -->
+<section id="work">
+  <div class="s-head">
+    <span class="s-label">Work</span>
+    <div class="s-rule"></div>
+  </div>
+  <div id="js-work"></div>
+</section>
+
+
+<!-- ================================================================
+     VISUALS — Carousel projection hire
+
+     TO ADD THE HERO IMAGE:
+     1. Save the photo as:  images/visuals-hero.jpg
+     2. Delete the .vis-hero-ph div below
+     3. Uncomment the <img> line
+================================================================ -->
+<section id="visuals">
+
+  <div class="vis-hero">
+    <!-- <img src="images/visuals-hero.jpg" alt="Carousel projection installation"> -->
+    <div class="vis-hero-ph"></div>
+    <span class="vis-hero-label">Carousel projection — live installation</span>
+  </div>
+
+  <div class="vis-body">
+
+    <div class="vis-text">
+      <h2>Light through physical material.<br>Not a screen. Not a laptop.</h2>
+      <p>
+        Available for hire with carousel projection for events, concerts,
+        exhibitions, and private occasions. Live, organic, and unrepeatable —
+        light pressed through experimental film negatives, transforming under
+        the heat of the projector.
+      </p>
+      <p>
+        Every image differs from the last. No loops, no files.
+        A projector, physical material, and the space you have.
+      </p>
+      <a class="btn-book" href="mailto:mathias.sedo@kaospilot.dk?subject=Book%20carousel%20projection">
+        Book an event
+      </a>
+    </div>
+
+    <div class="vis-details">
+      <p class="vis-tag">Available for</p>
+      <ul class="vis-list">
+        <li>Art exhibitions &amp; openings</li>
+        <li>Concerts &amp; music events</li>
+        <li>Private occasions</li>
+        <li>Pop-ups &amp; installations</li>
+        <li>Stage design &amp; backdrop</li>
+      </ul>
+
+      <p class="vis-tag">Format</p>
+      <ul class="vis-list">
+        <li>Live — no repetition</li>
+        <li>Analogue — light through film</li>
+        <li>Adaptable to space and scale</li>
+      </ul>
+
+      <p class="vis-tag">Enquiries</p>
+      <ul class="vis-list">
+        <li>
+          <a href="mailto:mathias.sedo@kaospilot.dk"
+             style="color:var(--fg-mid); transition:color 0.15s;"
+             onmouseover="this.style.color='var(--fg)'"
+             onmouseout="this.style.color='var(--fg-mid)'">
+            mathias.sedo@kaospilot.dk
+          </a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ================================================================
+     PRINTS  (rendered by JS from SITE_CONFIG.prints below)
+================================================================ -->
+<section id="prints">
+  <div class="s-head">
+    <span class="s-label">Prints</span>
+    <div class="s-rule"></div>
+  </div>
+
+  <p class="prints-intro">
+    Signed and numbered editions in limited runs.
+    <span>Printed in Aarhus · Shipping available.</span>
+    Contact for larger formats and custom requests.
+  </p>
+
+  <div class="prints" id="js-prints"></div>
+</section>
+
+
+<!-- ================================================================
+     CONTACT
+================================================================ -->
+<section id="contact">
+  <div class="s-head">
+    <span class="s-label">Contact</span>
+    <div class="s-rule"></div>
+  </div>
+
+  <div class="contact-grid">
+    <div class="contact-left">
+      <h2>Available for commissions,<br>exhibitions, and collaborations.</h2>
+      <a class="contact-email" href="mailto:mathias.sedo@kaospilot.dk">mathias.sedo@kaospilot.dk</a>
+    </div>
+
+    <div class="contact-right">
+      <p class="c-label">Follow</p>
+      <div class="socials">
+        <a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://vimeo.com/"     target="_blank" rel="noopener">Vimeo</a>
+      </div>
+      <p class="c-label" style="margin-top:2rem;">Based in</p>
+      <p class="location">Aarhus, Denmark</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================================
+     FOOTER
+================================================================ -->
+<footer>
+  <p>© 2025 Mathias Sedo</p>
+  <p>mathias-sedo.com</p>
+</footer>
+
+
+<!-- ================================================================
+     LIGHTBOX
+================================================================ -->
+<div class="lb" id="js-lb" role="dialog" aria-modal="true">
+  <span class="lb-close" id="js-lb-close" tabindex="0">Close ×</span>
+  <button class="lb-btn lb-prev" id="js-lb-prev">← Prev</button>
+  <img class="lb-img" id="js-lb-img" src="" alt="">
+  <button class="lb-btn lb-next" id="js-lb-next">Next →</button>
+  <span class="lb-counter" id="js-lb-counter"></span>
+</div>
+
+
+<!-- ================================================================
+     ╔══════════════════════════════════════════════════════════════╗
+     ║                   SITE CONFIGURATION                        ║
+     ║                                                              ║
+     ║  Edit this section to control all images on the site.       ║
+     ║  You do NOT need to touch anything else in the file.        ║
+     ╚══════════════════════════════════════════════════════════════╝
+================================================================ -->
+<script>
+var SITE_CONFIG = {
+
+  /* ── HERO GRID ──────────────────────────────────────────────────
+     The 6 images shown at the top of the page.
+     Add or remove entries — the grid always fills left-to-right.
+     Recommended: keep it at 6 (fills a 3×2 grid).
+  ─────────────────────────────────────────────────────────────── */
+  hero: [
+    { src: 'images/hero-c.jpg',   title: 'FR SCAN — C' },
+    { src: 'images/work-05.jpg',  title: 'FR SCAN — B' },
+    { src: 'images/work-06.jpg',  title: 'FR SCAN — N' },
+    { src: 'images/work-04.jpg',  title: 'FR SCAN — E' },
+    { src: 'images/photo-08.jpg', title: 'FR SCAN — D' },
+    { src: 'images/hero-f.jpg',   title: 'FR SCAN — F' },
+  ],
+
+  /* ── WORK SERIES ─────────────────────────────────────────────────
+     Each series has a name and a list of images.
+     Add a new series by copying one of these blocks.
+     Add or remove images by editing the images array.
+
+     Special option: set diptych: true on an image to show it
+     side-by-side with the NEXT image as a positive/negative pair.
+     The label property controls the small overlay text on diptychs.
+  ─────────────────────────────────────────────────────────────── */
+  series: [
+    {
+      name: 'Farvesvøb smeltevand',
+      images: [
+        { src: 'images/farvesvob-01.jpg', title: 'Farvesvøb smeltevand' },
+        { src: 'images/farvesvob-02.jpg', title: 'Farvesvøb smeltevand' },
+        { src: 'images/farvesvob-03.jpg', title: 'Farvesvøb smeltevand' },
+      ]
+    },
+    {
+      name: 'Kemirend',
+      images: [
+        { src: 'images/kemirend-01.jpg', title: 'Kemirend' },
+        { src: 'images/kemirend-02.jpg', title: 'Kemirend' },
+        { src: 'images/kemirend-03.jpg', title: 'Kemirend' },
+      ]
+    },
+    {
+      name: 'FR SCAN',
+      diptychs: [
+        [
+          { src: 'images/photo-01.jpg',  title: 'FR SCAN — G (positive)', label: 'positive' },
+          { src: 'images/frscan-gg.jpg', title: 'FR SCAN — Gg (negative)', label: 'negative' },
+        ],
+        [
+          { src: 'images/frscan-k.jpg',  title: 'FR SCAN — K (positive)', label: 'positive' },
+          { src: 'images/frscan-kk.jpg', title: 'FR SCAN — Kk (negative)', label: 'negative' },
+        ],
+      ],
+      images: []
+    },
+    {
+      name: 'Pinholes',
+      images: [
+        { src: 'images/pinholes-01.jpg', title: 'Pinholes — Skolen' },
+        { src: 'images/pinholes-02.jpg', title: 'Pinholes — Cykelkam' },
+        { src: 'images/pinholes-03.jpg', title: 'Pinholes — Skærsol' },
+      ]
+    },
+    {
+      name: 'Zenits facetter',
+      images: [
+        { src: 'images/photo-05.jpg',  title: 'Zenits facetter — Portugal' },
+        { src: 'images/zenits-02.jpg', title: 'Zenits facetter — Romania' },
+        { src: 'images/zenits-03.jpg', title: 'Zenits facetter — KrydsZ' },
+      ]
+    },
+  ],
+
+  /* ── PRINTS ──────────────────────────────────────────────────────
+     Each print has an image, title, edition info, origin, price,
+     and an email subject line for the inquiry button.
+     Add or remove prints freely.
+  ─────────────────────────────────────────────────────────────── */
+  prints: [
+    {
+      src:     'images/work-01.jpg',
+      title:   'FR SCAN — A',
+      edition: 'Limited edition · Printed in Aarhus',
+      origin:  'Shipping available',
+      price:   '800 DKK',
+      subject: 'Print - FR SCAN A',
+    },
+    {
+      src:     'images/hero-f.jpg',
+      title:   'FR SCAN — F',
+      edition: 'Limited edition · Printed in Aarhus',
+      origin:  'Shipping available',
+      price:   '800 DKK',
+      subject: 'Print - FR SCAN F',
+    },
+    {
+      src:     'images/farvesvob-01.jpg',
+      title:   'Farvesvøb smeltevand',
+      edition: 'Limited edition · Printed in Aarhus',
+      origin:  'Shipping available',
+      price:   '800 DKK',
+      subject: 'Print - Farvesvøb smeltevand',
+    },
+    {
+      src:     'images/kemirend-01.jpg',
+      title:   'Kemirend',
+      edition: 'Limited edition · Printed in Aarhus',
+      origin:  'Shipping available',
+      price:   '800 DKK',
+      subject: 'Print - Kemirend',
+    },
+  ],
+
+  /* ── CONTACT ─────────────────────────────────────────────────── */
+  email: 'mathias.sedo@kaospilot.dk',
+
+}; /* END SITE_CONFIG — do not edit below this line */
+</script>
+
+
+<!-- ================================================================
+     SCRIPT — renders the config above into the page
+================================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  var email = SITE_CONFIG.email;
+
+  /* ── Lightbox ───────────────────────────────────────────────── */
+  var lb      = document.getElementById('js-lb');
+  var lbImg   = document.getElementById('js-lb-img');
+  var lbCount = document.getElementById('js-lb-counter');
+  var lbClose = document.getElementById('js-lb-close');
+  var lbPrev  = document.getElementById('js-lb-prev');
+  var lbNext  = document.getElementById('js-lb-next');
+  var pool = [], idx = 0;
+
+  function openLb(items, i) {
+    pool = items; idx = i;
+    renderLb();
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLb() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  }
+
+  function renderLb() {
+    lbImg.src = pool[idx].src;
+    lbImg.alt = pool[idx].title || '';
+    lbCount.textContent = (idx + 1) + ' / ' + pool.length;
+  }
+
+  lbClose.addEventListener('click', closeLb);
+  lbPrev.addEventListener('click', function(e) { e.stopPropagation(); idx = (idx - 1 + pool.length) % pool.length; renderLb(); });
+  lbNext.addEventListener('click', function(e) { e.stopPropagation(); idx = (idx + 1) % pool.length; renderLb(); });
+  lb.addEventListener('click', function(e) { if (e.target === lb) closeLb(); });
+  document.addEventListener('keydown', function(e) {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape')     closeLb();
+    if (e.key === 'ArrowLeft')  { idx = (idx - 1 + pool.length) % pool.length; renderLb(); }
+    if (e.key === 'ArrowRight') { idx = (idx + 1) % pool.length; renderLb(); }
+  });
+
+  /* ── Build hero grid ────────────────────────────────────────── */
+  var heroEl    = document.getElementById('js-hero-grid');
+  var heroItems = SITE_CONFIG.hero;
+  heroItems.forEach(function(item, i) {
+    var div = document.createElement('div');
+    div.className = 'hg-item';
+    var img = document.createElement('img');
+    img.src = item.src; img.alt = item.title;
+    var cap = document.createElement('span');
+    cap.className = 'hg-cap';
+    cap.textContent = item.title;
+    div.appendChild(img);
+    div.appendChild(cap);
+    div.addEventListener('click', function() { openLb(heroItems, i); });
+    heroEl.appendChild(div);
+  });
+
+  /* ── Build work series ──────────────────────────────────────── */
+  var workEl = document.getElementById('js-work');
+  SITE_CONFIG.series.forEach(function(series) {
+    var seriesDiv = document.createElement('div');
+    seriesDiv.className = 'series';
+
+    var head = document.createElement('div');
+    head.className = 'series-head';
+    head.innerHTML = '<span class="series-name">' + series.name + '</span><div class="series-rule"></div>';
+    seriesDiv.appendChild(head);
+
+    /* Optional diptychs — supports multiple pairs */
+    var diptychs = series.diptychs || (series.diptych ? [series.diptych] : []);
+    diptychs.forEach(function(pair) {
+      var dipDiv = document.createElement('div');
+      dipDiv.className = 'diptych';
+      var dipItems = pair;
+      pair.forEach(function(item, i) {
+        var d = document.createElement('div');
+        d.className = 'diptych-item';
+        var img = document.createElement('img');
+        img.src = item.src; img.alt = item.title;
+        var lbl = document.createElement('span');
+        lbl.className = 'diptych-label';
+        lbl.textContent = item.label || '';
+        var cap = document.createElement('span');
+        cap.className = 'dip-cap';
+        cap.textContent = item.title;
+        d.appendChild(img);
+        d.appendChild(lbl);
+        d.appendChild(cap);
+        d.addEventListener('click', function() { openLb(dipItems, i); });
+        dipDiv.appendChild(d);
+      });
+      seriesDiv.appendChild(dipDiv);
+    });
+
+    /* Regular grid */
+    if (series.images && series.images.length) {
+      var grid = document.createElement('div');
+      grid.className = 'grid-photo';
+      var imgs = series.images;
+      imgs.forEach(function(item, i) {
+        var pi = document.createElement('div');
+        pi.className = 'pi';
+        var img = document.createElement('img');
+        img.src = item.src; img.alt = item.title;
+        var cap = document.createElement('span');
+        cap.className = 'pi-cap';
+        cap.textContent = item.title;
+        pi.appendChild(img);
+        pi.appendChild(cap);
+        pi.addEventListener('click', function() { openLb(imgs, i); });
+        grid.appendChild(pi);
+      });
+      seriesDiv.appendChild(grid);
+    }
+
+    workEl.appendChild(seriesDiv);
+  });
+
+  /* ── Build prints ────────────────────────────────────────────── */
+  var printsEl = document.getElementById('js-prints');
+  SITE_CONFIG.prints.forEach(function(p) {
+    var div = document.createElement('div');
+    div.className = 'print';
+    div.innerHTML =
+      '<img class="thumb" src="' + p.src + '" alt="' + p.title + '">' +
+      '<p class="print-title">'  + p.title   + '</p>' +
+      '<p class="print-meta">'   + p.edition  + '</p>' +
+      '<p class="print-origin">' + p.origin   + '</p>' +
+      '<p class="print-price">'  + p.price    + '</p>' +
+      '<a class="btn" href="mailto:' + email + '?subject=' + encodeURIComponent(p.subject) + '">Inquire</a>';
+    printsEl.appendChild(div);
+  });
+
+})();
+</script>
+
+</body>
+</html>
