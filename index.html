@@ -197,20 +197,24 @@
     }
     .series-name.expandable:hover { color: var(--fg); }
     .series-name.expandable::after {
-      content: ' +';
+      content: ' ▾';
       color: var(--fg-dim);
-      font-size: 0.6em;
+      font-size: 1em;
       letter-spacing: 0;
     }
-    .series-name.expandable.open::after { content: ' −'; }
+    .series-name.expandable.open::after { content: ' ▴'; }
 
     .more-grid {
       display: none;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: var(--gap);
       margin-top: var(--gap);
     }
     .more-grid.open { display: grid; }
+
+    @media (max-width: 640px) {
+      .more-grid { grid-template-columns: repeat(2, 1fr); }
+    }
 
     .series-rule {
       flex: 1;
@@ -613,7 +617,8 @@
 ================================================================ -->
 <div class="bio">
   <div class="bio-text">
-    <p>Mathias Sedo is a photographer and visual artist based in Aarhus, Denmark. His practice moves between experimental film negatives, carousel projection installations, and documentary photography — working with light, material, and the chemical residue of images left to decay.</p>
+    <p>Mathias Sedó works with materials that let light shine through them. Experimenting and drawing inspiration from natural objects, remnants of photographic history, and analogue colour universes, he explores what becomes visible when light finds its way through, and how the objects it illuminates can appear entirely different depending on the surface it lands on and the light they are seen by — all in pursuit of painting with light.</p>
+    <p>His practice moves between experimental film negatives, carousel projection installations, and documentary photography — working with light, material, and the chemical residue of images left to decay.</p>
   </div>
   <div class="bio-meta">
     <span class="bio-location">Aarhus, Denmark</span>
@@ -813,21 +818,18 @@ var SITE_CONFIG = {
         { src: 'images/farvesvob-03.jpg', title: 'Farvesvøb smeltevand' },
       ],
       moreImages: [
-        { src: 'images/Farvesvøb36.jpeg',       title: 'Farvesvøb smeltevand — 36' },
-        { src: 'images/Farvesvøb38.jpeg',       title: 'Farvesvøb smeltevand — 38' },
-        { src: 'images/Farvesvøb41.jpeg',       title: 'Farvesvøb smeltevand — 41' },
-        { src: 'images/Farvesvøb42.jpeg',       title: 'Farvesvøb smeltevand — 42' },
-        { src: 'images/Farvesvøb43.jpeg',       title: 'Farvesvøb smeltevand — 43' },
-        { src: 'images/Farvesvøb44.jpeg',       title: 'Farvesvøb smeltevand — 44' },
-        { src: 'images/Farvesvøb45.jpeg',       title: 'Farvesvøb smeltevand — 45' },
-        { src: 'images/Farvesvøb49.jpeg',       title: 'Farvesvøb smeltevand — 49' },
-        { src: 'images/Farvesvøb50 Ventani.jpeg', title: 'Farvesvøb smeltevand — Ventani' },
-        { src: 'images/Farvesvøb59.jpeg',       title: 'Farvesvøb smeltevand — 59' },
-        { src: 'images/Farvesvøb76.jpeg',       title: 'Farvesvøb smeltevand — 76' },
-        { src: 'images/Farvesvøb90.jpeg',       title: 'Farvesvøb smeltevand — 90' },
-        { src: 'images/Farvesvøb94.jpeg',       title: 'Farvesvøb smeltevand — 94' },
-        { src: 'images/Farvesvøb104.jpeg',      title: 'Farvesvøb smeltevand — 104' },
-        { src: 'images/Farvesvøb91.jpeg',       title: 'Farvesvøb smeltevand — 91' },
+        { src: 'images/Farvesvøb36.jpeg',  title: 'Farvesvøb smeltevand — 36' },
+        { src: 'images/Farvesvøb38.jpeg',  title: 'Farvesvøb smeltevand — 38' },
+        { src: 'images/Farvesvøb41.jpeg',  title: 'Farvesvøb smeltevand — 41' },
+        { src: 'images/Farvesvøb42.jpeg',  title: 'Farvesvøb smeltevand — 42' },
+        { src: 'images/Farvesvøb43.jpeg',  title: 'Farvesvøb smeltevand — 43' },
+        { src: 'images/Farvesvøb44.jpeg',  title: 'Farvesvøb smeltevand — 44' },
+        { src: 'images/Farvesvøb45.jpeg',  title: 'Farvesvøb smeltevand — 45' },
+        { src: 'images/Farvesvøb49.jpeg',  title: 'Farvesvøb smeltevand — 49' },
+        { src: 'images/Farvesvøb59.jpeg',  title: 'Farvesvøb smeltevand — 59' },
+        { src: 'images/Farvesvøb90.jpeg',  title: 'Farvesvøb smeltevand — 90' },
+        { src: 'images/Farvesvøb94.jpeg',  title: 'Farvesvøb smeltevand — 94' },
+        { src: 'images/Farvesvøb104.jpeg', title: 'Farvesvøb smeltevand — 104' },
       ]
     },
     {
@@ -884,14 +886,24 @@ var SITE_CONFIG = {
         { src: 'images/pinholes-01.jpg', title: 'Pinholes — Skærsol' },
         { src: 'images/pinholes-02.jpg', title: 'Pinholes — Cykelkam' },
         { src: 'images/pinholes-03.jpg', title: 'Pinholes — Skolen' },
+      ],
+      moreImages: [
+        { src: 'images/Togskinner NPN2_B WHAT.jpg',   title: 'Pinholes — Togskinner NPN' },
+        { src: 'images/Joffre NP.jpg',               title: 'Pinholes — Joffre NP' },
+        { src: 'images/Joffre NPP.jpg',              title: 'Pinholes — Joffre NPP' },
+        { src: 'images/Joffre NPPN_Spor2_B.jpg',    title: 'Pinholes — Joffre NPPN' },
+        { src: 'images/Joffre NPPNP_Spor2_B_.jpg',  title: 'Pinholes — Joffre NPPNP' },
+        { src: 'images/Togskinner NPP2.jpg',         title: 'Pinholes — Togskinner NPP' },
+        { src: 'images/Togskinner NPPN2_Spor2_B.jpg',  title: 'Pinholes — Togskinner NPPN' },
+        { src: 'images/Togskinner NPPNP2_Spor2_B.jpg', title: 'Pinholes — Togskinner NPPNP' },
       ]
     },
     {
       name: 'Zenits facetter',
       images: [
-        { src: 'images/photo-05.jpg',  title: 'Zenits facetter — Portugal' },
-        { src: 'images/zenits-02.jpg', title: 'Zenits facetter — Romania' },
-        { src: 'images/zenits-03.jpg', title: 'Zenits facetter — KrydsZ' },
+        { src: 'images/photo-05.jpg',  title: 'Zenits facetter — Vrancea, Romania' },
+        { src: 'images/zenits-02.jpg', title: 'Zenits facetter — Vrancea, Romania' },
+        { src: 'images/zenits-03.jpg', title: 'Zenits facetter — Vrancea, Romania' },
       ]
     },
   ],
@@ -1085,32 +1097,26 @@ var SITE_CONFIG = {
     if (series.moreDiptychs && series.moreDiptychs.length) {
       var moreDipWrap = document.createElement('div');
       moreDipWrap.className = 'more-grid';
-      moreDipWrap.style.display = 'none';
-      series.moreDiptychs.forEach(function(pair) {
-        var dipDiv = document.createElement('div');
-        dipDiv.className = 'diptych';
-        dipDiv.style.marginBottom = '0';
-        pair.forEach(function(item, i) {
-          var d = document.createElement('div');
-          d.className = 'diptych-item';
-          var img = document.createElement('img');
-          img.src = item.src; img.alt = item.title;
-          var lbl = document.createElement('span');
-          lbl.className = 'diptych-label';
-          lbl.textContent = item.label || '';
-          var cap = document.createElement('span');
-          cap.className = 'dip-cap';
-          cap.textContent = item.title;
-          d.appendChild(img); d.appendChild(lbl); d.appendChild(cap);
-          d.addEventListener('click', function() { openLb(pair, i); });
-          dipDiv.appendChild(d);
-        });
-        moreDipWrap.appendChild(dipDiv);
+      var allDipItems = [].concat.apply([], series.moreDiptychs);
+      allDipItems.forEach(function(item, i) {
+        var d = document.createElement('div');
+        d.className = 'diptych-item';
+        var img = document.createElement('img');
+        img.src = item.src; img.alt = item.title;
+        var lbl = document.createElement('span');
+        lbl.className = 'diptych-label';
+        lbl.textContent = item.label || '';
+        var cap = document.createElement('span');
+        cap.className = 'dip-cap';
+        cap.textContent = item.title;
+        d.appendChild(img); d.appendChild(lbl); d.appendChild(cap);
+        d.addEventListener('click', function() { openLb(allDipItems, i); });
+        moreDipWrap.appendChild(d);
       });
       seriesDiv.appendChild(moreDipWrap);
       nameEl.addEventListener('click', function() {
         nameEl.classList.toggle('open');
-        moreDipWrap.style.display = moreDipWrap.style.display === 'none' ? 'grid' : 'none';
+        moreDipWrap.classList.toggle('open');
       });
     }
 
