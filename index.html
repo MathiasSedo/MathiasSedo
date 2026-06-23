@@ -116,11 +116,16 @@
 
     /* ===== BIO ===== */
     .bio {
+      position: relative;
       padding: 4rem var(--pad) 3rem;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 4rem;
       border-bottom: 1px solid rgba(255,255,255,0.05);
+      background-image: linear-gradient(rgba(6,6,6,0.45), rgba(6,6,6,0.6)), url('images/bio-bg.jpg');
+      background-size: 100% 100%;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
     .bio-text {
@@ -128,6 +133,7 @@
       line-height: 1.9;
       color: var(--fg);
       max-width: 58ch;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.55);
     }
 
     .bio-text p + p { margin-top: 1rem; }
@@ -143,7 +149,8 @@
       font-size: 0.6rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--fg-dim);
+      color: var(--fg);
+      text-shadow: 0 1px 6px rgba(0,0,0,0.6);
     }
 
     /* ===== SECTION CHROME ===== */
@@ -309,27 +316,75 @@
       border-top: 1px solid rgba(255,255,255,0.055);
     }
 
-    .vis-hero {
+    .vis-gallery-single {
       position: relative;
-      width: 100%;
-      aspect-ratio: 16/9;
       overflow: hidden;
       background: #0a0806;
+      cursor: zoom-in;
     }
 
-    .vis-hero img {
+    .vis-gallery-single img {
+      width: 100%;
+      display: block;
+      opacity: 0.92;
+      transition: opacity 0.2s;
+    }
+
+    .vis-gallery-single:hover img { opacity: 1; }
+
+    .vis-gallery-hint {
+      position: absolute;
+      bottom: 1.5rem; right: 1.5rem;
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+    }
+
+    .vis-extra {
+      display: none;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--gap);
+      margin-top: var(--gap);
+    }
+
+    .vis-extra.open { display: grid; }
+
+    .vis-extra-item {
+      position: relative;
+      overflow: hidden;
+      background: #0a0806;
+      aspect-ratio: 4/3;
+      cursor: pointer;
+    }
+
+    .vis-extra-item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
       opacity: 0.88;
+      transition: opacity 0.2s, transform 0.5s;
     }
 
-    .vis-hero-ph {
+    .vis-extra-item:hover img { opacity: 1; transform: scale(1.03); }
+
+    .vis-play {
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse at 50% 60%, #c4620a 0%, #7a3a05 30%, #1a0d03 65%, #060606 100%);
-      opacity: 0.85;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      color: rgba(255,255,255,0.85);
+      background: rgba(0,0,0,0.25);
+      transition: background 0.2s;
+    }
+
+    .vis-extra-video:hover .vis-play { background: rgba(0,0,0,0.1); }
+
+    @media (max-width: 640px) {
+      .vis-extra { grid-template-columns: 1fr; }
     }
 
     .vis-hero-label {
@@ -340,6 +395,10 @@
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: rgba(255,255,255,0.3);
+    }
+
+    @media (max-width: 640px) {
+
     }
 
     .vis-body {
@@ -423,6 +482,41 @@
 
     .prints-intro span { color: var(--fg-mid); }
 
+    .pricing-overview {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+      margin-bottom: 3.5rem;
+      padding-bottom: 1.6rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .pricing-overview li {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      color: var(--fg-mid);
+    }
+
+    .pricing-overview li span:first-child {
+      font-size: 0.58rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--fg-dim);
+    }
+
+    .pricing-overview li span:last-child {
+      font-size: 0.85rem;
+      color: var(--fg);
+      font-weight: 700;
+    }
+
+    @media (max-width: 640px) {
+      .pricing-overview { flex-wrap: wrap; gap: 1.5rem 2rem; }
+    }
+
     .prints {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -441,13 +535,6 @@
     .print-title  { font-size: 0.72rem; letter-spacing: 0.07em; margin-bottom: 0.3rem; color: var(--fg); }
     .print-meta   { font-size: 0.6rem; letter-spacing: 0.06em; color: var(--fg-dim); margin-bottom: 0.3rem; }
     .print-origin { font-size: 0.58rem; letter-spacing: 0.05em; color: var(--fg-dim); margin-bottom: 0.8rem; font-style: italic; }
-
-    .print-price {
-      font-size: 0.78rem;
-      color: var(--fg);
-      margin-bottom: 1.1rem;
-      font-weight: 700;
-    }
 
     .btn {
       display: inline-block;
@@ -570,6 +657,26 @@
       color: var(--fg-dim);
     }
 
+    .lb-inquire {
+      position: absolute;
+      bottom: 2.5rem; left: 50%;
+      transform: translateX(-50%);
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--fg);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 0.65rem 1.5rem;
+      transition: color 0.18s, border-color 0.18s, background 0.18s;
+    }
+
+    .lb-inquire:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.5);
+    }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 960px) {
       .bio { grid-template-columns: 1fr; gap: 1.5rem; }
@@ -647,21 +754,36 @@
 ================================================================ -->
 <section id="visuals">
 
-  <div class="vis-hero">
-    <!-- <img src="images/visuals-hero.jpg" alt="Carousel projection installation"> -->
-    <div class="vis-hero-ph"></div>
-    <span class="vis-hero-label">Carousel projection — live installation</span>
+  <div class="vis-gallery">
+    <div class="vis-gallery-single" id="js-vis-toggle">
+      <img src="images/session-05.jpg" alt="Carousel projection — live session">
+      <span class="vis-gallery-hint" id="js-vis-hint">More from this session ＋</span>
+    </div>
+  </div>
+
+  <div class="vis-extra" id="js-vis-extra">
+    <div class="vis-extra-item" id="js-vis-extra-1">
+      <img src="images/session-extra-1.jpg" alt="Carousel projection — live session">
+    </div>
+    <div class="vis-extra-item" id="js-vis-extra-2">
+      <img src="images/session-extra-2.jpg" alt="Carousel projection — live session">
+    </div>
+    <div class="vis-extra-item vis-extra-video" id="js-vis-video-thumb">
+      <img src="images/session-video-poster.jpg" alt="Carousel projection — live recording">
+      <span class="vis-play">▶</span>
+    </div>
   </div>
 
   <div class="vis-body">
 
     <div class="vis-text">
-      <h2>Light through physical material.<br>Not a screen. Not a laptop.</h2>
+      <h2>Light paintings!</h2>
       <p>
-        Available for hire with carousel projection for events, concerts,
-        exhibitions, and private occasions. Live, organic, and unrepeatable —
-        light pressed through experimental film negatives, transforming under
-        the heat of the projector.
+        Available for collaborations with carousel projection for events, concerts,
+        exhibitions, and private occasions. Live — it differs every time.
+        Analogue — light through physical material, pressed through
+        experimental film negatives and transforming under the heat of
+        the projector.
       </p>
       <p>
         Every image differs from the last. No loops, no files.
@@ -684,8 +806,8 @@
 
       <p class="vis-tag">Format</p>
       <ul class="vis-list">
-        <li>Live — no repetition</li>
-        <li>Analogue — light through film</li>
+        <li>Live — differs every time</li>
+        <li>Analogue — light through physical material</li>
         <li>Adaptable to space and scale</li>
       </ul>
 
@@ -718,8 +840,15 @@
   <p class="prints-intro">
     Signed and numbered editions in limited runs.
     <span>Printed in Aarhus · Shipping available.</span>
-    Contact for larger formats and custom requests.
+    Send a message to order — sizes, framing, and shipping arranged by hand.
   </p>
+
+  <ul class="pricing-overview">
+    <li><span>A4</span><span>200 DKK</span></li>
+    <li><span>A3</span><span>450 DKK</span></li>
+    <li><span>A2</span><span>800 DKK</span></li>
+    <li><span>A1</span><span>1600 DKK</span></li>
+  </ul>
 
   <div class="prints" id="js-prints"></div>
 </section>
@@ -744,7 +873,7 @@
       <p class="c-label">Follow</p>
       <div class="socials">
         <a href="https://www.instagram.com/mathias_sedo/" target="_blank" rel="noopener">Instagram</a>
-        <a href="https://vimeo.com/"     target="_blank" rel="noopener">Vimeo</a>
+        <a href="https://www.linkedin.com/in/mathiassedó" target="_blank" rel="noopener">LinkedIn</a>
       </div>
       <p class="c-label" style="margin-top:2rem;">Based in</p>
       <p class="location">Aarhus, Denmark</p>
@@ -771,6 +900,12 @@
   <img class="lb-img" id="js-lb-img" src="" alt="">
   <button class="lb-btn lb-next" id="js-lb-next">Next →</button>
   <span class="lb-counter" id="js-lb-counter"></span>
+  <a class="lb-inquire" id="js-lb-inquire" href="#" target="_blank" rel="noopener">Inquire</a>
+</div>
+
+<div class="lb" id="js-vlb" role="dialog" aria-modal="true">
+  <span class="lb-close" id="js-vlb-close" tabindex="0">Close ×</span>
+  <video class="lb-img" id="js-vlb-video" src="" controls playsinline></video>
 </div>
 
 
@@ -918,7 +1053,12 @@ var SITE_CONFIG = {
       title:   'FR SCAN — A',
       edition: 'Limited edition · Printed in Aarhus',
       origin:  'Shipping available',
-      price:   '800 DKK',
+      sizes:   [
+        { label: 'A4', price: '200 DKK' },
+        { label: 'A3', price: '450 DKK' },
+        { label: 'A2', price: '800 DKK' },
+        { label: 'A1', price: '1600 DKK' },
+      ],
       subject: 'Print - FR SCAN A',
     },
     {
@@ -926,7 +1066,12 @@ var SITE_CONFIG = {
       title:   'FR SCAN — F',
       edition: 'Limited edition · Printed in Aarhus',
       origin:  'Shipping available',
-      price:   '800 DKK',
+      sizes:   [
+        { label: 'A4', price: '200 DKK' },
+        { label: 'A3', price: '450 DKK' },
+        { label: 'A2', price: '800 DKK' },
+        { label: 'A1', price: '1600 DKK' },
+      ],
       subject: 'Print - FR SCAN F',
     },
     {
@@ -934,7 +1079,12 @@ var SITE_CONFIG = {
       title:   'Farvesvøb smeltevand',
       edition: 'Limited edition · Printed in Aarhus',
       origin:  'Shipping available',
-      price:   '800 DKK',
+      sizes:   [
+        { label: 'A4', price: '200 DKK' },
+        { label: 'A3', price: '450 DKK' },
+        { label: 'A2', price: '800 DKK' },
+        { label: 'A1', price: '1600 DKK' },
+      ],
       subject: 'Print - Farvesvøb smeltevand',
     },
     {
@@ -942,7 +1092,12 @@ var SITE_CONFIG = {
       title:   'Kemirend',
       edition: 'Limited edition · Printed in Aarhus',
       origin:  'Shipping available',
-      price:   '800 DKK',
+      sizes:   [
+        { label: 'A4', price: '200 DKK' },
+        { label: 'A3', price: '450 DKK' },
+        { label: 'A2', price: '800 DKK' },
+        { label: 'A1', price: '1600 DKK' },
+      ],
       subject: 'Print - Kemirend',
     },
     {
@@ -950,7 +1105,12 @@ var SITE_CONFIG = {
       title:   'Pinholes — Skolen',
       edition: 'Limited edition · Printed in Aarhus',
       origin:  'Shipping available',
-      price:   '800 DKK',
+      sizes:   [
+        { label: 'A4', price: '200 DKK' },
+        { label: 'A3', price: '450 DKK' },
+        { label: 'A2', price: '800 DKK' },
+        { label: 'A1', price: '1600 DKK' },
+      ],
       subject: 'Print - Pinholes Skolen',
     },
   ],
@@ -978,6 +1138,7 @@ var SITE_CONFIG = {
   var lbClose = document.getElementById('js-lb-close');
   var lbPrev  = document.getElementById('js-lb-prev');
   var lbNext  = document.getElementById('js-lb-next');
+  var lbInquire = document.getElementById('js-lb-inquire');
   var pool = [], idx = 0;
 
   function openLb(items, i) {
@@ -997,6 +1158,8 @@ var SITE_CONFIG = {
     lbImg.src = pool[idx].src;
     lbImg.alt = pool[idx].title || '';
     lbCount.textContent = (idx + 1) + ' / ' + pool.length;
+    var title = pool[idx].title || 'this image';
+    lbInquire.href = 'mailto:' + email + '?subject=' + encodeURIComponent('Inquiry — ' + title);
   }
 
   lbClose.addEventListener('click', closeLb);
@@ -1008,6 +1171,47 @@ var SITE_CONFIG = {
     if (e.key === 'Escape')     closeLb();
     if (e.key === 'ArrowLeft')  { idx = (idx - 1 + pool.length) % pool.length; renderLb(); }
     if (e.key === 'ArrowRight') { idx = (idx + 1) % pool.length; renderLb(); }
+  });
+
+  /* ── Visuals extra: photos + video ─────────────────────────────── */
+  var visExtraItems = [
+    { src: 'images/session-extra-1.jpg', title: 'Carousel projection — live session' },
+    { src: 'images/session-extra-2.jpg', title: 'Carousel projection — live session' },
+  ];
+  document.getElementById('js-vis-extra-1').addEventListener('click', function() { openLb(visExtraItems, 0); });
+  document.getElementById('js-vis-extra-2').addEventListener('click', function() { openLb(visExtraItems, 1); });
+
+  var visToggle = document.getElementById('js-vis-toggle');
+  var visExtra  = document.getElementById('js-vis-extra');
+  var visHint   = document.getElementById('js-vis-hint');
+  visToggle.addEventListener('click', function() {
+    var open = visExtra.classList.toggle('open');
+    visHint.textContent = open ? 'Show less －' : 'More from this session ＋';
+  });
+
+  var vlb      = document.getElementById('js-vlb');
+  var vlbVideo = document.getElementById('js-vlb-video');
+  var vlbClose = document.getElementById('js-vlb-close');
+
+  function openVlb() {
+    vlbVideo.src = 'images/session-video.mp4';
+    vlb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    vlbVideo.play();
+  }
+
+  function closeVlb() {
+    vlb.classList.remove('open');
+    document.body.style.overflow = '';
+    vlbVideo.pause();
+    vlbVideo.src = '';
+  }
+
+  document.getElementById('js-vis-video-thumb').addEventListener('click', openVlb);
+  vlbClose.addEventListener('click', closeVlb);
+  vlb.addEventListener('click', function(e) { if (e.target === vlb) closeVlb(); });
+  document.addEventListener('keydown', function(e) {
+    if (vlb.classList.contains('open') && e.key === 'Escape') closeVlb();
   });
 
   /* ── Build hero grid ────────────────────────────────────────── */
@@ -1158,7 +1362,6 @@ var SITE_CONFIG = {
       '<p class="print-title">'  + p.title   + '</p>' +
       '<p class="print-meta">'   + p.edition  + '</p>' +
       '<p class="print-origin">' + p.origin   + '</p>' +
-      '<p class="print-price">'  + p.price    + '</p>' +
       '<a class="btn" href="mailto:' + email + '?subject=' + encodeURIComponent(p.subject) + '">Inquire</a>';
     printsEl.appendChild(div);
   });
