@@ -118,9 +118,9 @@
     .bio {
       position: relative;
       padding: 4rem var(--pad) 3rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       border-bottom: 1px solid rgba(255,255,255,0.05);
       background-image: linear-gradient(rgba(6,6,6,0.45), rgba(6,6,6,0.6)), url('images/bio-bg.jpg');
       background-size: 100% 100%;
@@ -132,8 +132,9 @@
       font-size: 0.82rem;
       line-height: 1.9;
       color: var(--fg);
-      max-width: 58ch;
+      max-width: 95ch;
       text-shadow: 0 1px 8px rgba(0,0,0,0.55);
+      margin: 0 auto;
     }
 
     .bio-text p + p { margin-top: 1rem; }
@@ -141,8 +142,8 @@
     .bio-meta {
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
-      padding-bottom: 0.2rem;
+      align-items: center;
+      margin-top: 2rem;
     }
 
     .bio-location {
@@ -200,16 +201,40 @@
 
     .series-name.expandable {
       cursor: pointer;
+      color: var(--fg-mid);
       transition: color 0.15s;
     }
-    .series-name.expandable:hover { color: var(--fg); }
+    .series-head:hover .series-name.expandable,
+    .series-name.expandable:hover {
+      color: var(--fg);
+    }
     .series-name.expandable::after {
       content: ' ▾';
       color: var(--fg-dim);
-      font-size: 1.2em;
+      font-size: 1.6em;
       letter-spacing: 0;
     }
     .series-name.expandable.open::after { content: ' ▴'; }
+
+    .series-hint {
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--fg-dim);
+      font-style: italic;
+      cursor: default;
+    }
+
+    .series-desc {
+      display: none;
+      font-size: 0.74rem;
+      line-height: 1.8;
+      color: var(--fg-mid);
+      max-width: 100%;
+      margin: -0.8rem 0 1.8rem;
+    }
+
+    .series-desc.open { display: block; }
 
     .more-grid {
       display: none;
@@ -313,7 +338,11 @@
     /* ===== VISUALS ===== */
     #visuals {
       padding: 0;
-      border-top: 1px solid rgba(255,255,255,0.055);
+    }
+
+    #visuals .s-head {
+      padding: 3rem var(--pad) 0;
+      margin-bottom: 2rem;
     }
 
     .vis-gallery-single {
@@ -679,7 +708,6 @@
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 960px) {
-      .bio { grid-template-columns: 1fr; gap: 1.5rem; }
       .grid-photo { grid-template-columns: repeat(2, 1fr); }
       .vis-body { grid-template-columns: 1fr; gap: 2.5rem; }
       .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -753,6 +781,11 @@
      3. Uncomment the <img> line
 ================================================================ -->
 <section id="visuals">
+
+  <div class="s-head">
+    <span class="s-label">Visuals</span>
+    <div class="s-rule"></div>
+  </div>
 
   <div class="vis-gallery">
     <div class="vis-gallery-single" id="js-vis-toggle">
@@ -844,10 +877,10 @@
   </p>
 
   <ul class="pricing-overview">
-    <li><span>A4</span><span>200 DKK</span></li>
-    <li><span>A3</span><span>450 DKK</span></li>
-    <li><span>A2</span><span>800 DKK</span></li>
-    <li><span>A1</span><span>1600 DKK</span></li>
+    <li><span>A4</span><span>251 DKK</span></li>
+    <li><span>A3</span><span>462 DKK</span></li>
+    <li><span>A2</span><span>758 DKK</span></li>
+    <li><span>A1</span><span>1243 DKK</span></li>
   </ul>
 
   <div class="prints" id="js-prints"></div>
@@ -946,6 +979,7 @@ var SITE_CONFIG = {
   series: [
     {
       name: 'Farvesvøb smeltevand',
+      description: 'A series that unfolded as the snow was melting in Romania.',
       images: [
         { src: 'images/farvesvob-01.jpg', title: 'Farvesvøb smeltevand' },
         { src: 'images/farvesvob-02.jpg', title: 'Farvesvøb smeltevand' },
@@ -968,6 +1002,7 @@ var SITE_CONFIG = {
     },
     {
       name: 'Kemirend',
+      description: 'The remnants of darkroom experiments.',
       images: [
         { src: 'images/kemirend-01.jpg', title: 'Kemirend' },
         { src: 'images/kemirend-02.jpg', title: 'Kemirend' },
@@ -976,6 +1011,7 @@ var SITE_CONFIG = {
     },
     {
       name: 'FC-CF',
+      description: 'Designed, controlled environments for degradation — letting film material become their opposites.',
       diptychs: [
         [
           { src: 'images/photo-01.jpg',  title: 'FC-CF — G (positive)', label: 'positive' },
@@ -1016,6 +1052,7 @@ var SITE_CONFIG = {
     },
     {
       name: 'Pinholes',
+      description: 'Homemade cameras absorbing light for several months in many different locations. Cykelkam — light from biking around the city of Aarhus for a month.',
       images: [
         { src: 'images/pinholes-01.jpg', title: 'Pinholes — Skærsol' },
         { src: 'images/pinholes-02.jpg', title: 'Pinholes — Cykelkam' },
@@ -1034,6 +1071,7 @@ var SITE_CONFIG = {
     },
     {
       name: 'Zenits facetter',
+      description: 'All shot in Romania with the Zenit-E — a camera from the Soviet Union, 1980.',
       images: [
         { src: 'images/photo-05.jpg',  title: 'Zenits facetter — Vrancea, Romania' },
         { src: 'images/zenits-02.jpg', title: 'Zenits facetter — Vrancea, Romania' },
@@ -1054,10 +1092,10 @@ var SITE_CONFIG = {
       edition: 'Limited edition · Printed in Aarhus',
       origin:  'Shipping available',
       sizes:   [
-        { label: 'A4', price: '200 DKK' },
-        { label: 'A3', price: '450 DKK' },
-        { label: 'A2', price: '800 DKK' },
-        { label: 'A1', price: '1600 DKK' },
+        { label: 'A4', price: '251 DKK' },
+        { label: 'A3', price: '462 DKK' },
+        { label: 'A2', price: '758 DKK' },
+        { label: 'A1', price: '1243 DKK' },
       ],
       subject: 'Print - FR SCAN A',
     },
@@ -1067,10 +1105,10 @@ var SITE_CONFIG = {
       edition: 'Limited edition · Printed in Aarhus',
       origin:  'Shipping available',
       sizes:   [
-        { label: 'A4', price: '200 DKK' },
-        { label: 'A3', price: '450 DKK' },
-        { label: 'A2', price: '800 DKK' },
-        { label: 'A1', price: '1600 DKK' },
+        { label: 'A4', price: '251 DKK' },
+        { label: 'A3', price: '462 DKK' },
+        { label: 'A2', price: '758 DKK' },
+        { label: 'A1', price: '1243 DKK' },
       ],
       subject: 'Print - FR SCAN F',
     },
@@ -1080,10 +1118,10 @@ var SITE_CONFIG = {
       edition: 'Limited edition · Printed in Aarhus',
       origin:  'Shipping available',
       sizes:   [
-        { label: 'A4', price: '200 DKK' },
-        { label: 'A3', price: '450 DKK' },
-        { label: 'A2', price: '800 DKK' },
-        { label: 'A1', price: '1600 DKK' },
+        { label: 'A4', price: '251 DKK' },
+        { label: 'A3', price: '462 DKK' },
+        { label: 'A2', price: '758 DKK' },
+        { label: 'A1', price: '1243 DKK' },
       ],
       subject: 'Print - Farvesvøb smeltevand',
     },
@@ -1093,10 +1131,10 @@ var SITE_CONFIG = {
       edition: 'Limited edition · Printed in Aarhus',
       origin:  'Shipping available',
       sizes:   [
-        { label: 'A4', price: '200 DKK' },
-        { label: 'A3', price: '450 DKK' },
-        { label: 'A2', price: '800 DKK' },
-        { label: 'A1', price: '1600 DKK' },
+        { label: 'A4', price: '251 DKK' },
+        { label: 'A3', price: '462 DKK' },
+        { label: 'A2', price: '758 DKK' },
+        { label: 'A1', price: '1243 DKK' },
       ],
       subject: 'Print - Kemirend',
     },
@@ -1106,10 +1144,10 @@ var SITE_CONFIG = {
       edition: 'Limited edition · Printed in Aarhus',
       origin:  'Shipping available',
       sizes:   [
-        { label: 'A4', price: '200 DKK' },
-        { label: 'A3', price: '450 DKK' },
-        { label: 'A2', price: '800 DKK' },
-        { label: 'A1', price: '1600 DKK' },
+        { label: 'A4', price: '251 DKK' },
+        { label: 'A3', price: '462 DKK' },
+        { label: 'A2', price: '758 DKK' },
+        { label: 'A1', price: '1243 DKK' },
       ],
       subject: 'Print - Pinholes Skolen',
     },
@@ -1239,7 +1277,7 @@ var SITE_CONFIG = {
 
     var head = document.createElement('div');
     head.className = 'series-head';
-    var hasMore = (series.moreImages && series.moreImages.length) || (series.moreDiptychs && series.moreDiptychs.length);
+    var hasMore = !!series.description || (series.moreImages && series.moreImages.length) || (series.moreDiptychs && series.moreDiptychs.length);
     var nameEl = document.createElement('span');
     nameEl.className = 'series-name' + (hasMore ? ' expandable' : '');
     nameEl.textContent = series.name;
@@ -1247,7 +1285,22 @@ var SITE_CONFIG = {
     ruleEl.className = 'series-rule';
     head.appendChild(nameEl);
     head.appendChild(ruleEl);
+    var hintEl = null;
+    if (hasMore) {
+      hintEl = document.createElement('span');
+      hintEl.className = 'series-hint';
+      hintEl.textContent = 'View more';
+      head.appendChild(hintEl);
+    }
     seriesDiv.appendChild(head);
+
+    var descEl = null;
+    if (series.description) {
+      descEl = document.createElement('p');
+      descEl.className = 'series-desc';
+      descEl.textContent = series.description;
+      seriesDiv.appendChild(descEl);
+    }
 
     /* Optional diptychs — supports multiple pairs */
     var diptychs = series.diptychs || (series.diptych ? [series.diptych] : []);
@@ -1296,56 +1349,54 @@ var SITE_CONFIG = {
       seriesDiv.appendChild(grid);
     }
 
-    /* More diptychs — hidden, toggled by clicking the series name */
-    if (series.moreDiptychs && series.moreDiptychs.length) {
-      var moreDipWrap = document.createElement('div');
-      moreDipWrap.className = 'more-grid';
-      var allDipItems = [].concat.apply([], series.moreDiptychs);
-      allDipItems.forEach(function(item, i) {
-        var d = document.createElement('div');
-        d.className = 'diptych-item';
-        var img = document.createElement('img');
-        img.src = item.src; img.alt = item.title;
-        var lbl = document.createElement('span');
-        lbl.className = 'diptych-label';
-        lbl.textContent = item.label || '';
-        var cap = document.createElement('span');
-        cap.className = 'dip-cap';
-        cap.textContent = item.title;
-        d.appendChild(img); d.appendChild(lbl); d.appendChild(cap);
-        d.addEventListener('click', function() { openLb(allDipItems, i); });
-        moreDipWrap.appendChild(d);
-      });
-      seriesDiv.appendChild(moreDipWrap);
-      nameEl.addEventListener('click', function() {
-        nameEl.classList.toggle('open');
-        moreDipWrap.classList.toggle('open');
-      });
-    }
+    /* More content — description + extra diptychs/images, hidden until the series name is clicked */
+    if (hasMore) {
+      var moreWrap = document.createElement('div');
+      moreWrap.className = 'more-grid';
 
-    /* More images — hidden grid toggled by clicking the series name */
-    if (series.moreImages && series.moreImages.length) {
-      var moreGrid = document.createElement('div');
-      moreGrid.className = 'more-grid';
-      var baseImgs = series.images || [];
-      var allImgs = baseImgs.concat(series.moreImages);
-      series.moreImages.forEach(function(item, mi) {
-        var pi = document.createElement('div');
-        pi.className = 'pi';
-        var img = document.createElement('img');
-        img.src = item.src; img.alt = item.title;
-        var cap = document.createElement('span');
-        cap.className = 'pi-cap';
-        cap.textContent = item.title;
-        pi.appendChild(img);
-        pi.appendChild(cap);
-        pi.addEventListener('click', (function(idx) { return function() { openLb(allImgs, idx); }; })(baseImgs.length + mi));
-        moreGrid.appendChild(pi);
-      });
-      seriesDiv.appendChild(moreGrid);
+      if (series.moreDiptychs && series.moreDiptychs.length) {
+        var allDipItems = [].concat.apply([], series.moreDiptychs);
+        allDipItems.forEach(function(item, i) {
+          var d = document.createElement('div');
+          d.className = 'diptych-item';
+          var img = document.createElement('img');
+          img.src = item.src; img.alt = item.title;
+          var lbl = document.createElement('span');
+          lbl.className = 'diptych-label';
+          lbl.textContent = item.label || '';
+          var cap = document.createElement('span');
+          cap.className = 'dip-cap';
+          cap.textContent = item.title;
+          d.appendChild(img); d.appendChild(lbl); d.appendChild(cap);
+          d.addEventListener('click', function() { openLb(allDipItems, i); });
+          moreWrap.appendChild(d);
+        });
+      }
+
+      if (series.moreImages && series.moreImages.length) {
+        var baseImgs = series.images || [];
+        var allImgs = baseImgs.concat(series.moreImages);
+        series.moreImages.forEach(function(item, mi) {
+          var pi = document.createElement('div');
+          pi.className = 'pi';
+          var img = document.createElement('img');
+          img.src = item.src; img.alt = item.title;
+          var cap = document.createElement('span');
+          cap.className = 'pi-cap';
+          cap.textContent = item.title;
+          pi.appendChild(img);
+          pi.appendChild(cap);
+          pi.addEventListener('click', (function(idx) { return function() { openLb(allImgs, idx); }; })(baseImgs.length + mi));
+          moreWrap.appendChild(pi);
+        });
+      }
+
+      seriesDiv.appendChild(moreWrap);
       nameEl.addEventListener('click', function() {
-        nameEl.classList.toggle('open');
-        moreGrid.classList.toggle('open');
+        var open = nameEl.classList.toggle('open');
+        moreWrap.classList.toggle('open');
+        if (descEl) descEl.classList.toggle('open');
+        if (hintEl) hintEl.textContent = open ? 'Show less' : 'View more';
       });
     }
 
